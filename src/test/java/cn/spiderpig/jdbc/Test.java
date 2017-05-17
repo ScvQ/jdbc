@@ -9,7 +9,7 @@ public class Test extends TestCase {
 	
 	//通过id获得一个用户
 	public void getOne() {
-		Result result = new UserDao().getOne(111);
+		Result result = new UserDao().getOne(241);
 		System.out.println(result);
 	}
 	
@@ -32,7 +32,7 @@ public class Test extends TestCase {
 	
 	//删除一个用户
 	public void deleteOne(){
-		Result result = new UserDao().delete(1);
+		Result result = new UserDao().delete(241);
 		System.out.println(result);
 	}
 

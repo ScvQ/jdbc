@@ -19,108 +19,105 @@ import cn.spiderpig.jdbc.util.ResultUtil;
 
 public class UserDao {
 
-	// 查一个用户
-	public Result<User> getOne(Integer id) {
+    // 查一个用户
+    public Result<User> getOne(Integer id) {
 
-		Result result = ResultUtil.error(1, "error");
-		DBConfig config = DBConfigUtil.getConfig();
-		try {
-			String sql = " SELECT * FROM user WHERE id = ? ";
-			PreparedStatement prepareStatement = DBUtil.getConnection(config).prepareStatement(sql);
-			prepareStatement.setInt(1, id);
-			ResultSet resultSet = prepareStatement.executeQuery();
-			List<User> list = new ArrayList<User>();
-			User user = null;
-			if (resultSet.next()) {
-				while (resultSet.next()) {
-					user = new User();
-					user.setId(resultSet.getInt("id"));
-					user.setUsername(resultSet.getString("username"));
-					user.setPassword(resultSet.getString("password"));
-				}
-				result = ResultUtil.success(user);
-			}else{
-				return result;
-			}
-		} catch (SQLException e) {
-			System.out.println("创建声明失败");
-		}
-		return result;
+        Result result = ResultUtil.error(1, "error");
+        DBConfig config = DBConfigUtil.getConfig();
+        try {
+            String sql = " SELECT * FROM user WHERE id = ? ";
+            PreparedStatement prepareStatement = DBUtil.getConnection(config).prepareStatement(sql);
+            prepareStatement.setInt(1, id);
+            ResultSet resultSet = prepareStatement.executeQuery();
+            List<User> list = new ArrayList<User>();
+            if (resultSet.next()) {
+                User user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setUsername(resultSet.getString("username"));
+                user.setPassword(resultSet.getString("password"));
+                result = ResultUtil.success(user);
+            } else {
+                return result;
+            }
+        } catch (SQLException e) {
+            System.out.println("创建声明失败");
+        }
+        return result;
 
-	}
+    }
 
-	// 查询所有用户
-	public Result<List> getAll() {
+    // 查询所有用户
+    public Result<List> getAll() {
 
-		Result result = ResultUtil.error(1, "error");
-		DBConfig config = DBConfigUtil.getConfig();
-		try {
-			String sql = " SELECT * FROM user ";
-			ResultSet resultSet = DBUtil.getConnection(config).prepareStatement(sql).executeQuery();
-			List<User> list = new ArrayList<User>();
-			User user = null;
-			if(resultSet.next()){
-				while (resultSet.next()) {
-					user = new User();
-					user.setId(resultSet.getInt("id"));
-					user.setUsername(resultSet.getString("username"));
-					user.setPassword(resultSet.getString("password"));
-					list.add(user);
-				}
-				result = ResultUtil.success(list);
-			}else{
-				return result;
-			}
-		} catch (SQLException e) {
-			System.out.println("创建声明失败");
-		}
-		return result;
+        Result result = ResultUtil.error(1, "error");
+        DBConfig config = DBConfigUtil.getConfig();
+        try {
+            String sql = " SELECT * FROM user ";
+            ResultSet resultSet = DBUtil.getConnection(config).prepareStatement(sql).executeQuery();
+            List<User> list = new ArrayList<User>();
+            User user = null;
+            while (resultSet.next()) {
+                user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setUsername(resultSet.getString("username"));
+                user.setPassword(resultSet.getString("password"));
+                list.add(user);
+            }
+            if (list.size() > 0) {
+                result = ResultUtil.success(list);
+            } else {
+                return result;
+            }
+        } catch (SQLException e) {
+            System.out.println("创建声明失败");
+        }
+        return result;
 
-	}
+    }
 
-	// 增加一个用户
-	public Result save(User user) {
+    // 增加一个用户
+    public Result save(User user) {
 
-		Result result = ResultUtil.error(1, "error");
-		DBConfig config = DBConfigUtil.getConfig();
-		try {
-			String sql = " INSERT INTO user(username,password) VALUES(?,?) ";
-			PreparedStatement prepareStatement = DBUtil.getConnection(config).prepareStatement(sql);
-			prepareStatement.setString(1, user.getUsername());
-			prepareStatement.setString(2, user.getPassword());
-			if (prepareStatement.executeUpdate() == 1) {
-				result = ResultUtil.success();
-			}
-		} catch (SQLException e) {
-			System.out.println("创建声明失败");
-		}
-		return result;
+        Result result = ResultUtil.error(1, "error");
+        DBConfig config = DBConfigUtil.getConfig();
+        try {
+            String sql = " INSERT INTO user(username,password) VALUES(?,?) ";
+            PreparedStatement prepareStatement = DBUtil.getConnection(config).prepareStatement(sql);
+            prepareStatement.setString(1, user.getUsername());
+            prepareStatement.setString(2, user.getPassword());
+            if (prepareStatement.executeUpdate() == 1) {
+                result = ResultUtil.success();
+            }
+        } catch (SQLException e) {
+            System.out.println("创建声明失败");
+        }
+        return result;
 
-	}
+    }
 
-	// 修改一个用户
-	public Result update(User user){
-		//和增加类似
-		return null;
-	}
+    // 修改一个用户
+    public Result update(User user) {
+        // 和增加类似
+        return null;
+    }
 
-	// 删除一个用户
-	public Result delete(Integer id){
-		
-		Result result = ResultUtil.error(1, "error");
-		DBConfig config = DBConfigUtil.getConfig();
-		try {
-			String sql = " DELETE FROM user WHERE id = ? ";
-			PreparedStatement prepareStatement = DBUtil.getConnection(config).prepareStatement(sql);
-			prepareStatement.setInt(1, id);
-			if (prepareStatement.executeUpdate() == 1) {
-				result = ResultUtil.success();
-			}
-		} catch (SQLException e) {
-			System.out.println("创建声明失败");
-		}
-		return result;
-		
-	}
+    // 删除一个用户
+    public Result delete(Integer id) {
+
+        Result result = ResultUtil.error(1, "error");
+        DBConfig config = DBConfigUtil.getConfig();
+        try {
+            String sql = " DELETE FROM user WHERE id = ? ";
+            PreparedStatement prepareStatement = DBUtil.getConnection(config).prepareStatement(sql);
+            prepareStatement.setInt(1, id);
+            if (prepareStatement.executeUpdate() == 1) {
+                result = ResultUtil.success();
+            }
+        } catch (SQLException e) {
+            System.out.println("创建声明失败");
+        }
+        return result;
+
+    }
 
 }
