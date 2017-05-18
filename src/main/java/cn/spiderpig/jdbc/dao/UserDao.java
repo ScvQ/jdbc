@@ -18,15 +18,21 @@ import cn.spiderpig.jdbc.util.DBUtil;
 import cn.spiderpig.jdbc.util.ResultUtil;
 
 public class UserDao {
+    
+    static {
+        DBConfig config = DBConfigUtil.getConfig();
+        DBUtil.openConnection(config);
+    }
 
     // 查一个用户
     public Result<User> getOne(Integer id) {
 
         Result result = ResultUtil.error(1, "error");
-        DBConfig config = DBConfigUtil.getConfig();
+        //DBConfig config = DBConfigUtil.getConfig();
         try {
             String sql = " SELECT * FROM user WHERE id = ? ";
-            PreparedStatement prepareStatement = DBUtil.getConnection(config).prepareStatement(sql);
+            //PreparedStatement prepareStatement = DBUtil.getConnection(config).prepareStatement(sql);
+            PreparedStatement prepareStatement = DBUtil.getConnection().prepareStatement(sql);
             prepareStatement.setInt(1, id);
             ResultSet resultSet = prepareStatement.executeQuery();
             List<User> list = new ArrayList<User>();
@@ -50,10 +56,11 @@ public class UserDao {
     public Result<List> getAll() {
 
         Result result = ResultUtil.error(1, "error");
-        DBConfig config = DBConfigUtil.getConfig();
+        //DBConfig config = DBConfigUtil.getConfig();
         try {
             String sql = " SELECT * FROM user ";
-            ResultSet resultSet = DBUtil.getConnection(config).prepareStatement(sql).executeQuery();
+            //ResultSet resultSet = DBUtil.getConnection(config).prepareStatement(sql).executeQuery();
+            ResultSet resultSet = DBUtil.getConnection().prepareStatement(sql).executeQuery();
             List<User> list = new ArrayList<User>();
             User user = null;
             while (resultSet.next()) {
@@ -79,10 +86,11 @@ public class UserDao {
     public Result save(User user) {
 
         Result result = ResultUtil.error(1, "error");
-        DBConfig config = DBConfigUtil.getConfig();
+        //DBConfig config = DBConfigUtil.getConfig();
         try {
             String sql = " INSERT INTO user(username,password) VALUES(?,?) ";
-            PreparedStatement prepareStatement = DBUtil.getConnection(config).prepareStatement(sql);
+            //PreparedStatement prepareStatement = DBUtil.getConnection(config).prepareStatement(sql);
+            PreparedStatement prepareStatement = DBUtil.getConnection().prepareStatement(sql);
             prepareStatement.setString(1, user.getUsername());
             prepareStatement.setString(2, user.getPassword());
             if (prepareStatement.executeUpdate() == 1) {
@@ -105,10 +113,11 @@ public class UserDao {
     public Result delete(Integer id) {
 
         Result result = ResultUtil.error(1, "error");
-        DBConfig config = DBConfigUtil.getConfig();
+        //DBConfig config = DBConfigUtil.getConfig();
         try {
             String sql = " DELETE FROM user WHERE id = ? ";
-            PreparedStatement prepareStatement = DBUtil.getConnection(config).prepareStatement(sql);
+            //PreparedStatement prepareStatement = DBUtil.getConnection(config).prepareStatement(sql);
+            PreparedStatement prepareStatement = DBUtil.getConnection().prepareStatement(sql);
             prepareStatement.setInt(1, id);
             if (prepareStatement.executeUpdate() == 1) {
                 result = ResultUtil.success();
