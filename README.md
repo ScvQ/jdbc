@@ -1,1 +1,1 @@
-jdk8 maven eclipse mysql数据库
+jdk8 maven eclipse mysql
