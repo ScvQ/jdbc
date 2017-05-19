@@ -10,9 +10,15 @@ import cn.spiderpig.jdbc.domain.DBConfig;
 
 public class DBUtil {
 
+    static {
+        DBConfig config = DBConfigUtil.getConfig();
+        DBUtil.openConnection(config);
+    }
+
     private static Connection CONNECTION;
 
-    private DBUtil() {}
+    private DBUtil() {
+    }
 
     /*
      * public synchronized static Connection getConnection(DBConfig config) {

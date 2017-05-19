@@ -19,10 +19,10 @@ import cn.spiderpig.jdbc.util.ResultUtil;
 
 public class UserDao {
     
-    static {
+    /*static {
         DBConfig config = DBConfigUtil.getConfig();
         DBUtil.openConnection(config);
-    }
+    }*/
 
     // 查一个用户
     public Result<User> getOne(Integer id) {

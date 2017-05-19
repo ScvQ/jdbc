@@ -9,7 +9,7 @@ public class Test extends TestCase {
 	
 	//通过id获得一个用户
 	public void getOne() {
-		Result result = new UserDao().getOne(242);
+		Result result = new UserDao().getOne(243);
 		System.out.println(result);
 	}
 	

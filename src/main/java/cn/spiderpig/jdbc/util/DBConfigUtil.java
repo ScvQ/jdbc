@@ -11,7 +11,7 @@ public class DBConfigUtil {
 
 	public static DBConfig getConfig() {
 		
-		InputStream inputStream = Test.class.getClassLoader().getResourceAsStream("jdbc.properties");
+		InputStream inputStream = DBConfigUtil.class.getClassLoader().getResourceAsStream("jdbc.properties");
 		Properties properties = new Properties();
 		try {
 			properties.load(inputStream);
